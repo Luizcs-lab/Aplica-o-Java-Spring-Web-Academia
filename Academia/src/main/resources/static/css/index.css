@@ -1,0 +1,28 @@
+*{
+    margin: 0%;
+    padding: auto;
+}
+body{
+    margin: 0%;
+    background-image: url("/Academia/src/main/resources/static/img/fundo-site-academia.jpg");
+    background-color: #737a86;
+}
+h1{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: white;
+
+}
+form{
+    width: 30%;
+    height: 50%;
+    
+}
+
+/*classe da barra de navegação do bootstrap*/
+.navbar {
+    background-color: rgba(0, 0, 0, 0.815);
+}
+.navbar-toggler{
+    background-color: darkblue;
+    border-radius: 50px 40px 30px 20px;
+}
