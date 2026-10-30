@@ -1,0 +1,56 @@
+* {
+    margin: 0%;
+    padding: auto;
+}
+
+body {
+    margin: 0%;
+    padding: 0%;
+    background-image: url("/images/fundo-site-academia.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+}
+
+h1 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: rgb(250, 249, 253);
+
+}
+
+form {
+    width: 30%;
+    height: 50%;
+    color: white;
+    padding-left: 10px;
+
+}
+
+section {
+    width: 100%;
+    background-color: rgba(58, 58, 58, 0.788);
+    padding-top: 10%;
+}
+
+p {
+    color: white;
+}
+
+nav {
+    background-color: rgba(0, 0, 0, 0.815);
+}
+
+.navbar-toggler {
+    background-color: darkblue;
+    border-radius: 50px 40px 30px 20px;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    padding: 5px;
+    margin-top: 20%;
+    position: relative;
+
+}

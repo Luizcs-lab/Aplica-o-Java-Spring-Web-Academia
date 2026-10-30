@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Exercícios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link rel="stylesheet" th:href="@{/css/index.css}" href="/css/index.css">
+</head>
+
+<body>
+    <!--script para funcionamento do bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Gestão de Academia</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/index}">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/CadastroAparelho}">Aparelhos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/Cadastroalunos}">Alunos</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Corrigido de href para th:href -->
+                        <a class="nav-link" th:href="@{/Instrutores}">Instrutores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/Exercicio/CadastroExercicio}">Exercícios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/CadastroGrupo}">Grupo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/LoginUsuario}">Usuário</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4 mb-5">
+        <!-- Exibição de mensagens de sucesso ou erro vindas do RedirectAttributes -->
+        <div th:if="${mensagem}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${mensagem}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div th:if="${erro}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span th:text="${erro}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <section>
+            <h1 class="mb-4">Cadastro de Exercícios:</h1>
+
+            <form th:action="@{/Exercicio/salvarExercicio}" th:object="${exercicio}" method="post">
+                <div class="mb-3">
+                    <label for="codExercicio" class="form-label">Código do Exercício:</label>
+                    <input type="text" id="codExercicio" class="form-control" required placeholder="Ex: 009"
+                        th:field="*{codExercicio}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="nmExercicio" class="form-label">Nome do Exercício:</label>
+                    <input type="text" id="nmExercicio" class="form-control" required placeholder="Ex: Trapézio"
+                        th:field="*{nmExercicio}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="obs" class="form-label">Observação:</label>
+                    <input type="text" id="obs" class="form-control" required placeholder="Observação sobre o treino"
+                        th:field="*{obs}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="aparelho" class="form-label">Aparelho destinado:</label>
+
+                    <select id="aparelho" class="form-select" th:field="*{aparelho}" required>
+                        <option value="" disabled th:selected="${exercicio.aparelho == null}">
+                            Selecione um aparelho
+                        </option>
+
+                        <option th:each="aparelho : ${listaAparelhos}" th:value="${aparelho.id}"
+                            th:text="${aparelho.nomeAparelho}">
+                        </option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 mt-3">Cadastrar exercício</button>
+            </form>
+        </section>
+
+        <!-- Tabela de Exercícios Cadastrados -->
+        <div class="table-responsive mt-5">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Código do Exercício</th>
+                        <th>Nome do Exercício</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="exe : ${listaExercicios}">
+                        <td th:text="${exe.id}">1</td>
+                        <td th:text="${exe.codExercicio}">009</td>
+                        <td th:text="${exe.nmExercicio}">Trapézio</td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(listaExercicios)}">
+                        <td colspan="3" class="text-center text-muted">Nenhum exercício cadastrado ainda.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <p class="text-center text-muted">Desenvolvido por: <a href="https://github.com/Luizcs-lab"
+                target="_blank">Cesar Luiz da Silva</a></p>
+    </footer>
+
+    <!-- Script Bootstrap no final do body -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
